@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Share your Clipboard</title>
+</head>
+
+<body>
+  <h1>Hello World!</h1>
+
+  <div style="display: flex; flex-flow: row wrap; gap: 1rem;">
+    <p>Want to share your clipboard?</p>
+
+    <button style="padding: 0 3em;" id="btn">
+      Share!
+    </button>
+  </div>
+
+  <script type="module">
+    import {io} from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+
+    const socket = io();
+
+    /** @type {HTMLButtonElement} */
+    const btn = document.querySelector('#btn');
+
+    btn.addEventListener('click', () => {
+      window.navigator.clipboard.readText()
+        .then(text => {
+          socket.emit('share', text);
+        })
+        .catch(err => {
+          console.error('Failed to read clipboard contents: ', err);
+        });
+    });
+  </script>
+</body>
+
+</html>
