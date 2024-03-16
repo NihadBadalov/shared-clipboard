@@ -10,7 +10,7 @@ const server = createServer(app);
 const io = new Server(server);
 
 /** @type {Array<Socket>} */
-const sockets = [];
+let sockets = [];
 
 io.on('connection', socket => {
   sockets.push(socket);

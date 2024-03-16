@@ -26,14 +26,16 @@
     /** @type {HTMLButtonElement} */
     const btn = document.querySelector('#btn');
 
-    btn.addEventListener('click', () => {
-      window.navigator.clipboard.readText()
-        .then(text => {
-          socket.emit('share', text);
-        })
-        .catch(err => {
-          console.error('Failed to read clipboard contents: ', err);
-        });
+    window.addEventListener('load', () => {
+      btn.addEventListener('click', () => {
+        window.navigator.clipboard.readText()
+          .then(text => {
+            socket.emit('share', text);
+          })
+          .catch(err => {
+            console.error('Failed to read clipboard contents: ', err);
+          });
+      });
     });
   </script>
 </body>
